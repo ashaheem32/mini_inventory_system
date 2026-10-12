@@ -27,7 +27,7 @@ services:
     build:
       context: ./frontend
       args:
-        VITE_CURRENCY: "${VITE_CURRENCY:-USD}"
+        VITE_CURRENCY: "${VITE_CURRENCY:-AED}"
         VITE_LOCALE: "${VITE_LOCALE:-en-US}"
     ports:
       - "${FRONTEND_PORT:-8080}:80"

@@ -1,6 +1,7 @@
 import { screen, waitFor, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { formatPrice } from "../../lib/format";
 import { createMockApi, deferred, json, makeProduct, makeProducts } from "../../test/mockApi";
 import { renderApp } from "../../test/renderApp";
 import { SEARCH_DEBOUNCE_MS } from "./ProductsPage";
@@ -31,7 +32,7 @@ describe("products list states", () => {
 
     const row = (await screen.findByText("Wireless Mouse")).closest("tr")!;
     expect(within(row).getByText("Electronics")).toBeInTheDocument();
-    expect(within(row).getByText("$49.90")).toBeInTheDocument();
+    expect(within(row).getByText(formatPrice("49.90").replace(/\s/g, " "))).toBeInTheDocument();
     expect(within(row).getByText("18")).toBeInTheDocument();
     expect(within(row).getByText("Active")).toBeInTheDocument();
     expect(within(row).getByRole("link", { name: "Edit Wireless Mouse" })).toBeInTheDocument();

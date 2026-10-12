@@ -23,7 +23,7 @@ A small full-stack inventory app built for a two-day assessment. Signed-in users
 |---|---|---|---|
 | ![Mobile list](docs/screenshots/products-mobile.png) | ![Add product form](docs/screenshots/add-product.png) | ![Form validation](docs/screenshots/form-validation.png) | ![Delete dialog](docs/screenshots/delete-dialog.png) |
 
-These screenshots are real captures of the Docker build.
+These screenshots are real captures of the running app.
 
 ## Demo login
 
@@ -90,7 +90,7 @@ Open http://localhost:5173 and sign in with the demo account.
 | Variable | Default | Purpose |
 |---|---|---|
 | `VITE_API_BASE_URL` | `http://127.0.0.1:8000` | API origin. An empty value means the same origin, which Docker uses. |
-| `VITE_CURRENCY` | `USD` | ISO 4217 code used to display prices. |
+| `VITE_CURRENCY` | `AED` | ISO 4217 code used to display prices. |
 | `VITE_LOCALE` | `en-US` | Number formatting locale. It is fixed, so the display never depends on the viewer's browser. |
 
 ## Tests and checks

@@ -5,7 +5,7 @@ RUN npm ci --no-audit --no-fund
 COPY . .
 # Empty base URL: the browser calls /api/ on the same origin and nginx proxies it.
 ARG VITE_API_BASE_URL=""
-ARG VITE_CURRENCY=USD
+ARG VITE_CURRENCY=AED
 ARG VITE_LOCALE=en-US
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL VITE_CURRENCY=$VITE_CURRENCY VITE_LOCALE=$VITE_LOCALE
 RUN npm run build
