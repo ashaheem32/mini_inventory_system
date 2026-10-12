@@ -13,4 +13,6 @@ RUN npm run build
 FROM nginx:1.27-alpine
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
+# Files copied from filesystems without Unix permissions may be owner-only; nginx must read them.
+RUN chmod -R a+rX /usr/share/nginx/html
 EXPOSE 80
