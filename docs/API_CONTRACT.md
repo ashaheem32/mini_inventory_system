@@ -1,6 +1,9 @@
 # Mini Inventory API Contract
 
-Base URL for local development: `http://127.0.0.1:8000`
+Base URL:
+
+- Local development: `http://127.0.0.1:8000`
+- Docker Compose: `http://localhost:8080`, where nginx proxies `/api/` to Django on the same origin
 
 All endpoints use JSON and **require the trailing slash** shown below.
 
@@ -226,6 +229,9 @@ Malformed JSON returns `400 {"detail": "JSON parse error - ..."}`.
 | 429 | Login throttled |
 
 ## CORS
+
+CORS only matters for the local development setup. The Docker build calls the API on its own origin.
+
 
 Allowed origins come from `CORS_ALLOWED_ORIGINS` and default to `http://localhost:5173,http://127.0.0.1:5173`. The `Authorization` header is allowed. Cookies are not used.
 
