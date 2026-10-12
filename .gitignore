@@ -1,0 +1,30 @@
+# macOS / external-drive metadata
+.DS_Store
+._*
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local databases
+*.sqlite3
+*.sqlite3-journal
+db.sqlite3*
+
+# Django
+backend/staticfiles/
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Docker backend overrides
+backend/docker.env
