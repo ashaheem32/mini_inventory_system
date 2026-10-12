@@ -1,0 +1,41 @@
+# Production-style local stack: nginx serves the React build and proxies /api/ to Django.
+#   docker compose up --build        -> http://localhost:8080
+services:
+  backend:
+    build: ./backend
+    env_file:
+      - path: ./backend/docker.env
+        required: false
+    environment:
+      DJANGO_DEBUG: "false"
+      DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1,backend"
+      CSRF_TRUSTED_ORIGINS: "http://localhost:${FRONTEND_PORT:-8080},http://127.0.0.1:${FRONTEND_PORT:-8080}"
+      NUM_PROXIES: "1"
+      SEED_ON_START: "${SEED_ON_START:-true}"
+    volumes:
+      - inventory-data:/data
+    healthcheck:
+      # Any HTTP response (401 without a token) means Django is serving requests.
+      test: ["CMD", "python", "-c", "import urllib.request as u, urllib.error as e\ntry: u.urlopen('http://127.0.0.1:8000/api/categories/', timeout=3)\nexcept e.HTTPError: pass"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_CURRENCY: "${VITE_CURRENCY:-USD}"
+        VITE_LOCALE: "${VITE_LOCALE:-en-US}"
+    ports:
+      - "${FRONTEND_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  # SQLite database and generated secret key; survives `docker compose down` and rebuilds.
+  inventory-data:
